@@ -1,2 +1,2 @@
 pip-tools==7.4.1
-reflex==0.4.7
+reflex>=0.4.5
