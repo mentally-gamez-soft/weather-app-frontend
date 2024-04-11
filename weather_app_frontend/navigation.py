@@ -67,8 +67,9 @@ dashboard_sidebar = sidebar(
     sidebar_link(text="Dashboard", href="/", icon="bar_chart_3"),
     sidebar_link(text="Tools", href="/tools", icon="settings"),
     sidebar_link(text="Team", href="/team", icon="users"),
+    sidebar_link(text="Weather", href="/weather", icon="bar_chart_2"),
     logo_src="/logo.jpg",
-    heading="REFLEX",
+    heading="Weather APP",
 )
 
 

@@ -1,13 +1,14 @@
 """Mock data to populate the dashboard charts and tables."""
 
 import reflex as rx
+
 from weather_app_frontend.graphs import Area, Line
 
 stat_card_data = [
     [
         "Today's Money",
         "$53,000",
-        "+2%",
+        "-2%",
     ],
     [
         "Today's Users",
@@ -63,6 +64,10 @@ areas = [
 tabular_data = [
     ["Full name", "Email", "Group"],
     ["Danilo Sousa", "danilo@example.com", rx.badge("Developer")],
-    ["Zahra Ambessa", "zahra@example.com", rx.badge("Admin", variant="surface")],
+    [
+        "Zahra Ambessa",
+        "zahra@example.com",
+        rx.badge("Admin", variant="surface"),
+    ],
     ["Jasper Eriksson", "jasper@example.com", rx.badge("Developer")],
 ]
