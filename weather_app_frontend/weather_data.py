@@ -113,7 +113,7 @@ weather_forecast_2 = {
                 "latitude": 48.86,
                 "longitude": 2.35,
             },
-            "date": datetime.date(2024, 4, 11).strftime("%a %m %b %Y"),
+            "date": datetime.date(2024, 4, 11).strftime("%a %m %b"),
             "temperature": {"high": 16, "low": 11, "average": 13},
             "ephemeride": {
                 "sun": {
@@ -124,7 +124,7 @@ weather_forecast_2 = {
                 "moon": {
                     "rise": datetime.time(8, 9).strftime("%H:%M"),
                     "phase": "🌒",
-                    "set": "",
+                    "set": None,
                     "light": 7,
                 },
             },
@@ -137,9 +137,7 @@ weather_forecast_2 = {
                 "latitude": 48.86,
                 "longitude": 2.35,
             },
-            "date": datetime.date(2024, 4, 12).strftime(
-                "%a %m %b %Y %H:%M:%S"
-            ),
+            "date": datetime.date(2024, 4, 12).strftime("%a %m %b"),
             "temperature": {"high": 22, "low": 13, "average": 17},
             "ephemeride": {
                 "sun": {
@@ -163,9 +161,7 @@ weather_forecast_2 = {
                 "latitude": 48.86,
                 "longitude": 2.35,
             },
-            "date": datetime.date(2024, 4, 13).strftime(
-                "%a %m %b %Y %H:%M:%S"
-            ),
+            "date": datetime.date(2024, 4, 13).strftime("%a %m %b"),
             "temperature": {"high": 24, "low": 13, "average": 18},
             "ephemeride": {
                 "sun": {
@@ -183,3 +179,29 @@ weather_forecast_2 = {
         },
     ],
 }
+
+
+# list of data for the evolution of the week
+temperatures_chart = [
+    {
+        "name": weather_forecast_2["week"][0]["date"],
+        "high": weather_forecast_2["week"][0]["temperature"]["high"],
+        "average": weather_forecast_2["week"][0]["temperature"]["average"],
+        "low": weather_forecast_2["week"][0]["temperature"]["low"],
+    },
+    {
+        "name": weather_forecast_2["week"][1]["date"],
+        "high": weather_forecast_2["week"][1]["temperature"]["high"],
+        "average": weather_forecast_2["week"][1]["temperature"]["average"],
+        "low": weather_forecast_2["week"][1]["temperature"]["low"],
+    },
+    {
+        "name": weather_forecast_2["week"][2]["date"],
+        "high": weather_forecast_2["week"][2]["temperature"]["high"],
+        "average": weather_forecast_2["week"][2]["temperature"]["average"],
+        "low": weather_forecast_2["week"][2]["temperature"]["low"],
+    },
+]
+
+
+print(temperatures_chart)

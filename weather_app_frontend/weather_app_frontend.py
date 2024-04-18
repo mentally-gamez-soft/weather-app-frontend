@@ -7,7 +7,7 @@ from weather_app_frontend.pages.index import index
 from weather_app_frontend.pages.team import team
 from weather_app_frontend.pages.tools import tools
 from weather_app_frontend.pages.weather_page import weather
-from weather_app_frontend.styles import (
+from weather_app_frontend.styles.styles import (
     BACKGROUND_COLOR,
     FONT_FAMILY,
     STYLESHEETS,

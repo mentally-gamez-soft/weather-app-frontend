@@ -1,7 +1,7 @@
 import reflex as rx
 from reflex.components import lucide
 
-from weather_app_frontend.styles import FONT_FAMILY
+from weather_app_frontend.styles.styles import FONT_FAMILY
 
 
 def sidebar_link(text: str, href: str, icon: str):

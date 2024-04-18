@@ -3,9 +3,38 @@ import reflex as rx
 from weather_app_frontend.navigation import navbar
 from weather_app_frontend.template import template
 from weather_app_frontend.weather_data import (
+    temperatures_chart,
     weather_forecast,
     weather_forecast_2,
 )
+
+
+class Line(rx.Base):
+    data_key: str
+    stroke: str
+
+
+def line_chart(data: rx.Var | list[dict], data_key: str, lines: list[Line]):
+    return card(
+        rx.recharts.line_chart(
+            *[
+                rx.recharts.line(data_key=line.data_key, stroke=line.stroke)
+                for line in lines
+            ],
+            rx.recharts.x_axis(data_key=data_key),
+            rx.recharts.y_axis(),
+            rx.recharts.legend(),
+            data=data,
+            height=300,
+        )
+    )
+
+
+lines = [
+    Line(data_key="high", stroke="#8884d8"),
+    Line(data_key="average", stroke="var(--accent-8)"),
+    Line(data_key="low", stroke="var(--accent-6)"),
+]
 
 
 def card(*children, **props):
@@ -163,7 +192,10 @@ def moon_day_info() -> rx.Component:
             rx.text("Set"),
             rx.avatar(src="/moonset.png"),
             rx.text(
-                weather_forecast_2["week"][0]["ephemeride"]["moon"]["set"]
+                ""
+                if weather_forecast_2["week"][0]["ephemeride"]["moon"]["set"]
+                is None
+                else weather_forecast_2["week"][0]["ephemeride"]["moon"]["set"]
             ),
             text_align="center",
             width="33%",
@@ -211,6 +243,36 @@ def weather_card2() -> rx.Component:
     )
 
 
+def weather_title_header() -> rx.Component:
+    return card(
+        rx.hstack(
+            rx.vstack(
+                rx.text(
+                    "Country: {}".format(
+                        weather_forecast_2["day"]["location"]["country"]
+                    ),
+                    text_align="center",
+                ),
+                rx.divider(),
+                rx.text(
+                    "Region: {}".format(
+                        weather_forecast_2["day"]["location"]["region"]
+                    ),
+                    text_align="center",
+                ),
+                rx.divider(),
+                rx.text(
+                    "Town: {}".format(
+                        weather_forecast_2["day"]["location"]["region"]
+                    ),
+                    text_align="center",
+                ),
+                width="100%",
+            )
+        )
+    )
+
+
 def weather_card(title: str, temperature: str, icon: str) -> rx.Component:
     # color = "var(--red-9)" if delta[0] == "-" else "var(--green-9)"
     # arrow = "decrease" if delta[0] == "-" else "increase"
@@ -237,36 +299,40 @@ def weather_card(title: str, temperature: str, icon: str) -> rx.Component:
 
 
 def weather_grid():
-    return rx.hstack(
-        rx.chakra.grid(
-            # *[
-            #     rx.chakra.grid_item(weather_card(forecast["day"]["location"]["name"], forecast["day"]["temperature"]["real"], forecast["day"]["weather"]["icon"]), col_span=1, row_span=1)
-            #     for forecast in weather_forecast
-            # ],
-            rx.chakra.grid_item(weather_card2(), col_span=1, row_span=1),
-            # rx.chakra.grid_item(
-            #     weather_card2(), col_span=1, row_span=1
-            # ),
-            # rx.chakra.grid_item(
-            #     weather_card2(), col_span=1, row_span=1
-            # ),
-            template_columns="repeat(1, 1fr)",
-            width="25%",
-            gap=3,
-            row_gap=9,
+    return rx.vstack(
+        rx.hstack(
+            rx.chakra.grid(
+                rx.chakra.grid_item(weather_title_header()),
+                template_columns="repeat(1, 1fr)",
+                width="100%",
+                gap=3,
+                row_gap=3,
+            ),
+            width="100%",
         ),
-        rx.chakra.grid(
-            # *[
-            #     rx.chakra.grid_item(weather_card(forecast["day"]["location"]["name"], forecast["day"]["temperature"]["real"], forecast["day"]["weather"]["icon"]), col_span=1, row_span=1)
-            #     for forecast in weather_forecast
-            # ],
-            rx.chakra.grid_item(weather_card2(), col_span=1, row_span=1),
-            template_columns="repeat(1, 1fr)",
-            width="70%",
-            gap=3,
-            row_gap=3,
+        rx.hstack(
+            rx.chakra.grid(
+                rx.chakra.grid_item(weather_card2(), col_span=1, row_span=1),
+                template_columns="repeat(1, 1fr)",
+                width="25%",
+                gap=3,
+                row_gap=9,
+            ),
+            rx.chakra.grid(
+                rx.chakra.grid_item(
+                    line_chart(
+                        data=temperatures_chart, data_key="name", lines=lines
+                    ),
+                    col_span=2,
+                    row_span=2,
+                ),
+                template_columns="repeat(1, 1fr)",
+                width="100%",
+                gap=3,
+                row_gap=3,
+            ),
+            width="100%",
         ),
-        width="100%",
     )
 
 
